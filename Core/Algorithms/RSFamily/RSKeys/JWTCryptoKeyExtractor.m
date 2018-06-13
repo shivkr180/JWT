@@ -43,7 +43,8 @@
 
 @implementation JWTCryptoKeyExtractor_Public_Pem_Certificate
 - (id<JWTCryptoKeyProtocol>)keyFromData:(NSData *)data parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing *)error {
-    return [[JWTCryptoKeyPublic alloc] initWithCertificateData:data parameters:parameters error:error];
+    NSString *secrate = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [self keyFromString:secrate parameters:parameters error:error];
 }
 @end
 
@@ -63,7 +64,8 @@
 
 @implementation JWTCryptoKeyExtractor_Public_Pem_Key
 - (id<JWTCryptoKeyProtocol>)keyFromData:(NSData *)data parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing *)error {
-    return [self keyFromString:[JWTBase64Coder base64UrlEncodedStringWithData:data] parameters:parameters error:error];
+    NSString *secrate = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [self keyFromString:secrate parameters:parameters error:error];
 }
 - (id<JWTCryptoKeyProtocol>)keyFromString:(NSString *)string parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing *)error {
     return [[JWTCryptoKeyPublic alloc] initWithPemEncoded:string parameters:parameters error:error];
@@ -74,7 +76,8 @@
 
 @implementation JWTCryptoKeyExtractor_Private_Pem_Key
 - (id<JWTCryptoKeyProtocol>)keyFromData:(NSData *)data parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing *)error {
-    return [self keyFromString:[JWTBase64Coder base64UrlEncodedStringWithData:data] parameters:parameters error:error];
+    NSString *secrate = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [self keyFromString:secrate parameters:parameters error:error];
 }
 - (id<JWTCryptoKeyProtocol>)keyFromString:(NSString *)string parameters:(NSDictionary *)parameters error:(NSError *__autoreleasing *)error {
     return [[JWTCryptoKeyPrivate alloc] initWithPemEncoded:string parameters:parameters error:error];
