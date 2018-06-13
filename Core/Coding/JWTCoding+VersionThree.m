@@ -348,6 +348,10 @@
     
     if (theSegment) {
         encodedSegmentData = [NSJSONSerialization dataWithJSONObject:theSegment options:0 error:error];
+        
+        NSString *policyStr = [[NSString alloc] initWithData:encodedSegmentData encoding:NSUTF8StringEncoding];
+        policyStr = [policyStr stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+        encodedSegmentData = [policyStr dataUsingEncoding:NSUTF8StringEncoding];
     }
     else {
         // error!
